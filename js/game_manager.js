@@ -52,7 +52,7 @@ GameManager.prototype.setup = function () {
     this.keepPlaying = false;
 
     // Add the initial tiles
-    this.addStartTiles();
+    // this.addStartTiles();
   }
 
   // Update the actuator
@@ -79,9 +79,10 @@ GameManager.prototype.addRandomTile = function () {
 // Adds a tile in a random position
 GameManager.prototype.addTileOnCell = function ([iRow, iColumn, tileValue]) {
   if (this.grid.cellsAvailable()) {
-    var tile = new Tile({x: iRow, y: iColumn} , tileValue);
+    var tile = new Tile({x: iColumn, y: iRow} , tileValue);
 
     this.grid.insertTile(tile);
+    this.actuate();
   }
 };
 
