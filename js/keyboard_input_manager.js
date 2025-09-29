@@ -74,7 +74,8 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
   for(let iRow = 0; iRow < 4; iRow++) {
     for(let iColumn = 0; iColumn < 4; iColumn++) {
-      this.bindButtonPress(`#row_${iRow}_column_${iColumn}`, (event) => this.addTileOnCell(event, iRow, iColumn));
+      this.bindButtonPress(`#row_${iRow}_column_${iColumn}`, (event) => this.addTileOnCell(event, iRow, iColumn, 2));
+      this.bindRightClick(`#row_${iRow}_column_${iColumn}`, (event) => this.addTileOnCell(event, iRow, iColumn, 4));
     }
   }
 
@@ -142,12 +143,8 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
   this.emit("keepPlaying");
 };
 
-KeyboardInputManager.prototype.addTileOnCell = function (event, iRow, iColumn) {
+KeyboardInputManager.prototype.addTileOnCell = function (event, iRow, iColumn, value) {
   event.preventDefault();
-  let value = 2;
-  if (event.button === 2) { // Clic droit
-    value = 4;
-  }
   this.emit("addTileOnCell", [iRow, iColumn, value]);
 };
 
@@ -155,4 +152,9 @@ KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
   var button = document.querySelector(selector);
   button.addEventListener("click", fn.bind(this));
   button.addEventListener(this.eventTouchend, fn.bind(this));
+};
+
+KeyboardInputManager.prototype.bindRightClick = function (selector, fn) {
+  var button = document.querySelector(selector);
+  button.addEventListener("contextmenu", fn.bind(this));
 };
