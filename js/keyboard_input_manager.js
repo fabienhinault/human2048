@@ -144,7 +144,7 @@ KeyboardInputManager.prototype.keepPlaying = function (event) {
 
 KeyboardInputManager.prototype.addTileOnCell = function (event, iRow, iColumn) {
   event.preventDefault();
-  this.emit("addTileOnCell", iRow, iColumn);
+  this.emit("addTileOnCell", [iRow, iColumn]);
 };
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
