@@ -72,6 +72,11 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".retry-button", this.restart);
   this.bindButtonPress(".restart-button", this.restart);
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
+  for(let iRow = 0; iRow < 4; iRow++) {
+    for(let iColumn = 0; iColumn < 4; iColumn++) {
+      this.bindButtonPress(`#row_${iRow}_column_${iColumn}`, () => this.addTileOnRow(iRow, iColumn));
+    }
+  }
 
   // Respond to swipe events
   var touchStartClientX, touchStartClientY;
