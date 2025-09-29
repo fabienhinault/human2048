@@ -74,7 +74,7 @@ KeyboardInputManager.prototype.listen = function () {
   this.bindButtonPress(".keep-playing-button", this.keepPlaying);
   for(let iRow = 0; iRow < 4; iRow++) {
     for(let iColumn = 0; iColumn < 4; iColumn++) {
-      this.bindButtonPress(`#row_${iRow}_column_${iColumn}`, () => this.addTileOnRow(iRow, iColumn));
+      this.bindButtonPress(`#row_${iRow}_column_${iColumn}`, (event) => this.addTileOnCell(event, iRow, iColumn));
     }
   }
 
@@ -140,6 +140,11 @@ KeyboardInputManager.prototype.restart = function (event) {
 KeyboardInputManager.prototype.keepPlaying = function (event) {
   event.preventDefault();
   this.emit("keepPlaying");
+};
+
+KeyboardInputManager.prototype.addTileOnCell = function (event, iRow, iColumn) {
+  event.preventDefault();
+  this.emit("addTileOnCell", iRow, iColumn);
 };
 
 KeyboardInputManager.prototype.bindButtonPress = function (selector, fn) {
