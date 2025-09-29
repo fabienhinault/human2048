@@ -9,6 +9,7 @@ function GameManager(size, InputManager, Actuator, StorageManager) {
   this.inputManager.on("move", this.move.bind(this));
   this.inputManager.on("restart", this.restart.bind(this));
   this.inputManager.on("keepPlaying", this.keepPlaying.bind(this));
+  this.inputManager.on("addTileOnCell", this.addTileOnCell.bind(this));
 
   this.setup();
 }
@@ -74,6 +75,16 @@ GameManager.prototype.addRandomTile = function () {
     this.grid.insertTile(tile);
   }
 };
+
+// Adds a tile in a random position
+GameManager.prototype.addTileOnCell = function ([iRow, iColumn, tileValue]) {
+  if (this.grid.cellsAvailable()) {
+    var tile = new Tile({x: iRow, y: iColumn} , tileValue);
+
+    this.grid.insertTile(tile);
+  }
+};
+
 
 // Sends the updated grid to the actuator
 GameManager.prototype.actuate = function () {
